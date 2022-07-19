@@ -1,7 +1,7 @@
 {
   "name": "conduit-api-monorepo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Real World monorepo example",
   "type": "module",
   "private": true,
   "keywords": [
@@ -12,6 +12,9 @@
   "license": "MIT",
   "author": "Marcelo Dias <contact@marcelohmdias.dev> (https://github.com/marcelohmdias)",
   "scripts": {
+    "dev:api": "pnpm --filter api dev",
+    "lint": "pnpm --filter \"./packages/**\" lint",
+    "lint:fix": "pnpm lint -- --fix",
     "prepare": "pnpx simple-git-hooks",
     "test": "echo \"Error: no test specified\"",
     "up:check": "pnpm -s dlx npm-check -u"

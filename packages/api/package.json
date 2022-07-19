@@ -1,0 +1,44 @@
+{
+  "name": "@conduit/api",
+  "version": "1.0.0",
+  "description": "API for Real World App project",
+  "type": "module",
+  "keywords": [
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "Marcelo Dias <contact@marcelohmdias.dev> (https://github.com/marcelohmdias)",
+  "scripts": {
+    "build": "unbuild",
+    "dev": "NODE_ENV=development node --inspect --loader tsx ./src/index.ts",
+    "dev:watch": "NODE_ENV=development tsx watch ./src/index.ts",
+    "lint": "eslint . --ext js,ts",
+    "lint:fix": "eslint --fix . --ext js,ts",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:run": "pnpm test --run",
+    "teste:coverage": "pnpm test:run --coverage",
+    "test:integration": "pnpm test -t **/*.integration.{js,mjs,cjs,ts,mts,cts}",
+    "test:run:integration": "pnpm test:integration --run"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.30.6",
+    "@typescript-eslint/parser": "5.30.6",
+    "@vitest/ui": "0.18.1",
+    "c8": "7.11.3",
+    "eslint": "8.20.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-standard": "17.0.0",
+    "eslint-define-config": "1.5.1",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import-helpers": "1.2.1",
+    "eslint-plugin-n": "15.2.4",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-promise": "6.0.0",
+    "prettier": "2.7.1",
+    "tsx": "3.8.0",
+    "typescript": "4.7.4",
+    "unbuild": "0.7.4",
+    "vitest": "0.18.1"
+  }
+}
