@@ -1,5 +1,5 @@
 module.exports = {
-  'commit-msg': 'pnpm -s dlx commitlint --edit "$1"',
-  'pre-commit': 'pnpm -s dlx lint-staged',
+  'commit-msg': 'pnpm exec commitlint --edit "$1"',
+  'pre-commit': 'pnpm exec lint-staged',
   'prepare-commit-msg': 'exec < /dev/tty && git cz --hook || true'
 }

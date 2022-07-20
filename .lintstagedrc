@@ -1,5 +1,6 @@
 {
-  "*": [
-    "pnpm test"
+  "./src/**/*": [
+    "pnpm lint",
+    "pnpm test:run"
   ]
 }
