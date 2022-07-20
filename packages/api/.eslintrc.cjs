@@ -17,9 +17,12 @@ module.exports = defineConfig({
   rules: {
     'no-console': isDev ? 'off' : 'error',
     'no-debugger': isDev ? 'off' : 'error',
+    'sort-imports': ['warn', { ignoreDeclarationSort: true, ignoreCase: true }],
     'prettier/prettier': [
       'error',
-      {},
+      {
+        printWidth: 120
+      },
       {
         usePrettierrc: true
       }
@@ -28,7 +31,16 @@ module.exports = defineConfig({
       'warn',
       {
         newlinesBetween: 'always',
-        groups: ['/^node:/', 'module', ['parent', 'sibling', 'index']],
+        groups: [
+          '/^node:/',
+          'module',
+          '/^@src/',
+          '/^@config/',
+          '/^@core/',
+          '/^@ports/',
+          '/^@adapters/',
+          ['parent', 'sibling', 'index']
+        ],
         alphabetize: { order: 'asc', ignoreCase: true }
       }
     ]

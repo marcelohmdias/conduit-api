@@ -2,10 +2,16 @@
   "extends": "../../tsconfig.base.json",
 
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "outDir": "./dist",
-    "rootDirs": ["./src"],
-    "paths": {}
+    "rootDir": "./",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@config/*": ["./src/config/*"],
+      "@core/*": ["./src/core/*"],
+      "@ports/*": ["./src/ports/*"],
+      "@adapters/*": ["./src/adapters/*"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]

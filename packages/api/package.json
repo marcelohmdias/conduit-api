@@ -16,12 +16,18 @@
     "lint:fix": "eslint --fix . --ext js,ts",
     "start": "node dist/index.js",
     "test": "vitest",
-    "test:run": "pnpm test --run",
-    "teste:coverage": "pnpm test:run --coverage",
+    "test:run": "pnpm test run",
+    "test:coverage": "pnpm test:run -- --coverage",
     "test:integration": "pnpm test -t **/*.integration.{js,mjs,cjs,ts,mts,cts}",
     "test:run:integration": "pnpm test:integration --run"
   },
+  "dependencies": {
+    "fp-ts": "2.12.1",
+    "module-alias": "2.2.2"
+  },
   "devDependencies": {
+    "@faker-js/faker": "7.3.0",
+    "@types/module-alias": "2.0.1",
     "@typescript-eslint/eslint-plugin": "5.30.6",
     "@typescript-eslint/parser": "5.30.6",
     "@vitest/ui": "0.18.1",
