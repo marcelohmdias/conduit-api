@@ -1,18 +1,8 @@
 {
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "file",
-  "eslint.alwaysShowStatus": true,
-  "eslint.enable": true,
   "eslint.run": "onSave",
-  "eslint.validate": ["javascript", "typescript"],
-  "prettier.enable": true
+  "eslint.validate": ["javascript", "typescript"]
 }
