@@ -14,16 +14,22 @@ const data: CreateUser = {
   password: faker.internet.password()
 }
 
-const registerOk: OutsideRegister<string> = async (res) => {
-  return `User ${res.username} registered with success!`
+const registerOk: OutsideRegister = async (res) => {
+  return {
+    username: res.username,
+    email: res.email,
+    image: faker.image.avatar(),
+    token: faker.datatype.uuid(),
+    bio: faker.lorem.paragraph(1)
+  }
 }
 
 describe('user', () => {
   test('Should register with success', async () => {
     const pipeline = pipe(
       data,
-      register(registerOk),
-      map((res) => expect(res).toBe(`User ${data.username} registered with success!`))
+      register(registerOk)(),
+      map((res) => expect(res.token).toBeDefined())
     )
     return pipeline()
   })
