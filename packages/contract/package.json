@@ -1,0 +1,23 @@
+{
+  "name": "@conduit/contract",
+  "version": "1.0.0",
+  "description": "Ports",
+  "type": "module",
+  "keywords": [
+    "typescript"
+  ],
+  "files": [
+    "src"
+  ],
+  "author": "Marcelo Dias <contact@marcelohmdias.dev> (https://github.com/marcelohmdias)",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "devDependencies": {
+    "typescript": "4.7.4"
+  },
+  "dependencies": {
+    "fp-ts": "2.12.2"
+  }
+}
