@@ -5,14 +5,14 @@ type EmailBrand = {
   readonly Email: unique symbol
 }
 
-export const ERR_EMAIL_INVALID = 'Invalid email'
+export const ERR_INVALID_EMAIL = 'Invalid email.'
 
 export const isEmail = (value: string) => /^\w+.+?@\w+.+?$/.test(value)
 
-export const emailGuard = (value: string): value is t.Branded<string, EmailBrand> => isEmail(value)
+const predicate = (value: string): value is t.Branded<string, EmailBrand> => isEmail(value)
 
-export const codec = t.brand(t.string, emailGuard, 'Email')
+const codec = t.brand(t.string, predicate, 'Email')
 
-export const EmailCodec = withMessage(codec, () => ERR_EMAIL_INVALID)
+export const emailCodec = withMessage(codec, () => ERR_INVALID_EMAIL)
 
-export type Email = t.TypeOf<typeof EmailCodec>
+export type Email = t.TypeOf<typeof emailCodec>

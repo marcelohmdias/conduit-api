@@ -1,17 +1,18 @@
 import { faker } from '@faker-js/faker'
-import { map, mapLeft } from 'fp-ts/Either'
 import { pipe } from 'fp-ts/function'
 import { describe, expect, test } from 'vitest'
 
-import { EmailCodec, ERR_EMAIL_INVALID } from './email'
+import { getErrorMessage, mapAllE } from '@config/tests/fixtures'
+
+import { emailCodec, ERR_INVALID_EMAIL } from './email'
 
 describe('scalar/email', () => {
   test('Should correctly validate the email', () => {
     const input = faker.internet.email()
     pipe(
       input,
-      EmailCodec.decode,
-      map((res) => expect(res).toBe(input))
+      emailCodec.decode,
+      mapAllE((res) => expect(res).toBe(input))
     )
   })
 
@@ -19,8 +20,8 @@ describe('scalar/email', () => {
     const input = faker.random.word()
     pipe(
       input,
-      EmailCodec.decode,
-      mapLeft(([err]) => expect(err?.message).toBe(ERR_EMAIL_INVALID))
+      emailCodec.decode,
+      mapAllE((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_EMAIL))
     )
   })
 })

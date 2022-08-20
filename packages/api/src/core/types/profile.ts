@@ -1,6 +1,12 @@
-export type Profile = {
-  username: string
-  bio: string
-  image: string
-  following: boolean
-}
+import * as t from 'io-ts'
+
+import { urlCodec } from '@core/types/scalar/url'
+
+export const profileCodec = t.type({
+  username: t.string,
+  bio: t.string,
+  image: urlCodec,
+  following: t.boolean
+})
+
+export type Profile = t.TypeOf<typeof profileCodec>
