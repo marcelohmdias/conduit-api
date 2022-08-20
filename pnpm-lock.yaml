@@ -43,7 +43,11 @@ importers:
       eslint-plugin-prettier: 4.2.1
       eslint-plugin-promise: 6.0.0
       fp-ts: 2.12.2
+      io-ts: 2.2.17
+      io-ts-types: 0.5.16
       module-alias: 2.2.2
+      monocle-ts: 2.3.13
+      newtype-ts: 0.3.5
       prettier: 2.7.1
       tsx: 3.8.2
       typescript: 4.7.4
@@ -52,7 +56,11 @@ importers:
     dependencies:
       '@conduit/contract': link:../contract
       fp-ts: 2.12.2
+      io-ts: 2.2.17_fp-ts@2.12.2
+      io-ts-types: 0.5.16_3upzps4aquepugv6lrvvgq47ci
       module-alias: 2.2.2
+      monocle-ts: 2.3.13_fp-ts@2.12.2
+      newtype-ts: 0.3.5_4grr3t76qfujgbwv2dpf633gum
     devDependencies:
       '@faker-js/faker': 7.4.0
       '@types/module-alias': 2.0.1
@@ -2890,6 +2898,28 @@ packages:
       side-channel: 1.0.4
     dev: true
 
+  /io-ts-types/0.5.16_3upzps4aquepugv6lrvvgq47ci:
+    resolution: {integrity: sha512-h9noYVfY9rlbmKI902SJdnV/06jgiT2chxG6lYDxaYNp88HscPi+SBCtmcU+m0E7WT5QSwt7sIMj93+qu0FEwQ==}
+    peerDependencies:
+      fp-ts: ^2.0.0
+      io-ts: ^2.0.0
+      monocle-ts: ^2.0.0
+      newtype-ts: ^0.3.2
+    dependencies:
+      fp-ts: 2.12.2
+      io-ts: 2.2.17_fp-ts@2.12.2
+      monocle-ts: 2.3.13_fp-ts@2.12.2
+      newtype-ts: 0.3.5_4grr3t76qfujgbwv2dpf633gum
+    dev: false
+
+  /io-ts/2.2.17_fp-ts@2.12.2:
+    resolution: {integrity: sha512-RkQY06h6rRyADVEI46OCAUYTP2p18Vdtz9Movi19Mmj7SJ1NhN/yGyW7CxlcBVxh95WKg2YSbTmcUPqqeLuhXw==}
+    peerDependencies:
+      fp-ts: ^2.5.0
+    dependencies:
+      fp-ts: 2.12.2
+    dev: false
+
   /is-arrayish/0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
     dev: true
@@ -3444,6 +3474,14 @@ packages:
     resolution: {integrity: sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==}
     dev: false
 
+  /monocle-ts/2.3.13_fp-ts@2.12.2:
+    resolution: {integrity: sha512-D5Ygd3oulEoAm3KuGO0eeJIrhFf1jlQIoEVV2DYsZUMz42j4tGxgct97Aq68+F8w4w4geEnwFa8HayTS/7lpKQ==}
+    peerDependencies:
+      fp-ts: ^2.5.0
+    dependencies:
+      fp-ts: 2.12.2
+    dev: false
+
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -3479,6 +3517,16 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /newtype-ts/0.3.5_4grr3t76qfujgbwv2dpf633gum:
+    resolution: {integrity: sha512-v83UEQMlVR75yf1OUdoSFssjitxzjZlqBAjiGQ4WJaML8Jdc68LJ+BaSAXUmKY4bNzp7hygkKLYTsDi14PxI2g==}
+    peerDependencies:
+      fp-ts: ^2.0.0
+      monocle-ts: ^2.0.0
+    dependencies:
+      fp-ts: 2.12.2
+      monocle-ts: 2.3.13_fp-ts@2.12.2
+    dev: false
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
