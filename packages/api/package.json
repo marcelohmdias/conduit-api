@@ -2,7 +2,6 @@
   "name": "@conduit/api",
   "version": "1.0.0",
   "description": "API for Real World App project",
-  "type": "module",
   "keywords": [
     "typescript"
   ],

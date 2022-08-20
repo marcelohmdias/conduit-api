@@ -1,10 +1,6 @@
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
 
 import { addAlias } from 'module-alias'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 
 addAlias('@src', join(__dirname, '..'))
 addAlias('@config', join(__dirname, '..', 'config'))
