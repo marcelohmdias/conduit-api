@@ -1,3 +1,4 @@
+import { definePredicate } from '@conduit/contract/src'
 import * as t from 'io-ts'
 import { withMessage } from 'io-ts-types'
 
@@ -7,9 +8,9 @@ type EmailBrand = {
 
 export const ERR_INVALID_EMAIL = 'Invalid email.'
 
-export const isEmail = (value: string) => /^\w+.+?@\w+.+?$/.test(value)
+const isEmail = (value: string) => /^\w+.+?@\w+.+?$/.test(value)
 
-const predicate = (value: string): value is t.Branded<string, EmailBrand> => isEmail(value)
+const predicate = definePredicate<string, EmailBrand>(isEmail)
 
 const codec = t.brand(t.string, predicate, 'Email')
 
