@@ -1,5 +1,7 @@
+import type { Email } from '@core/types/scalar'
+
 export type User = {
-  email: string
+  email: Email
   token: string
   username: string
   bio: string
@@ -8,6 +10,6 @@ export type User = {
 
 export type CreateUser = {
   username: string
-  email: string
+  email: Email
   password: string
 }

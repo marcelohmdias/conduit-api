@@ -4,7 +4,7 @@ import { pipe } from 'fp-ts/function'
 import { tryCatch } from 'fp-ts/TaskEither'
 import type { TaskEither } from 'fp-ts/TaskEither'
 
-import { CreateUser, User } from '@core/types/user'
+import { CreateUser, User } from '@core/types'
 
 export type RegisterUser = Callable<TaskEither<Error, User>, CreateUser>
 export type OutsideRegister = Callable<Promise<User>, CreateUser>
