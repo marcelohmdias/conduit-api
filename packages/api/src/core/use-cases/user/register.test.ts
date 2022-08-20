@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { pipe } from 'fp-ts/lib/function'
 import { describe, expect, test } from 'vitest'
 
-import { EXTERNAL_ERROR, mapAllTE, unsafeEmail, unsafeUrl } from '@config/tests/fixtures'
+import { EXTERNAL_ERROR, mapAll, unsafeEmail, unsafeUrl } from '@config/tests/fixtures'
 
 import { userCodec } from '@core/types/user'
 import type { CreateUser } from '@core/types/user'
@@ -36,7 +36,7 @@ describe('use-cases/user', () => {
     const pipeline = pipe(
       data,
       registerAdapter(),
-      mapAllTE((res) => expect(userCodec.is(res)).toBeTruthy())
+      mapAll((res) => expect(userCodec.is(res)).toBeTruthy())
     )
     return pipeline()
   })
@@ -46,7 +46,7 @@ describe('use-cases/user', () => {
     const pipeline = pipe(
       data,
       registerAdapter(),
-      mapAllTE((err) => expect(err).toStrictEqual(new Error(EXTERNAL_ERROR)))
+      mapAll((err) => expect(err).toStrictEqual(new Error(EXTERNAL_ERROR)))
     )
     pipeline()
   })

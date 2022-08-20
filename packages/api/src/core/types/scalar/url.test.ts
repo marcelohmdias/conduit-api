@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { pipe } from 'fp-ts/function'
+import { fromEither } from 'fp-ts/lib/TaskEither'
 import { describe, expect, test } from 'vitest'
 
-import { getErrorMessage, mapAllE } from '@config/tests/fixtures'
+import { getErrorMessage, mapAll } from '@config/tests/fixtures'
 
 import { ERR_INVALID_URL, urlCodec } from './url'
 
@@ -12,7 +13,8 @@ describe('scalar/url', () => {
     pipe(
       input,
       urlCodec.decode,
-      mapAllE((res) => expect(res).toBe(input))
+      fromEither,
+      mapAll((res) => expect(res).toBe(input))
     )
   })
 
@@ -21,7 +23,8 @@ describe('scalar/url', () => {
     pipe(
       input,
       urlCodec.decode,
-      mapAllE((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_URL))
+      fromEither,
+      mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_URL))
     )
   })
 })

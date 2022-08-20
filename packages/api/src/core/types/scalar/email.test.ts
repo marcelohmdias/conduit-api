@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { pipe } from 'fp-ts/function'
+import { fromEither } from 'fp-ts/lib/TaskEither'
 import { describe, expect, test } from 'vitest'
 
-import { getErrorMessage, mapAllE } from '@config/tests/fixtures'
+import { getErrorMessage, mapAll } from '@config/tests/fixtures'
 
 import { emailCodec, ERR_INVALID_EMAIL } from './email'
 
@@ -12,7 +13,8 @@ describe('scalar/email', () => {
     pipe(
       input,
       emailCodec.decode,
-      mapAllE((res) => expect(res).toBe(input))
+      fromEither,
+      mapAll((res) => expect(res).toBe(input))
     )
   })
 
@@ -21,7 +23,8 @@ describe('scalar/email', () => {
     pipe(
       input,
       emailCodec.decode,
-      mapAllE((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_EMAIL))
+      fromEither,
+      mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_EMAIL))
     )
   })
 })
