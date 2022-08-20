@@ -25,7 +25,7 @@ describe('scalar/date', () => {
       input,
       dateCodec.decode,
       fromEither,
-      mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_DATE))
+      mapAll((err) => expect(getErrorMessage(err)).toBe(ERR_INVALID_DATE))
     )()
   })
 })

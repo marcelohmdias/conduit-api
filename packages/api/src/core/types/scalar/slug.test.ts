@@ -9,7 +9,7 @@ import { ERR_INVALID_SLUG, slugCodec } from './slug'
 
 const mapRight = (input: unknown) => mapAll((res) => expect(res).toBe(input))
 
-const mapLeft = mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_SLUG))
+const mapLeft = mapAll((err) => expect(getErrorMessage(err)).toBe(ERR_INVALID_SLUG))
 
 describe('scalar/slug', () => {
   test('should validate slug properly', async () => {

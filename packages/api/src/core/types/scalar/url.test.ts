@@ -24,7 +24,7 @@ describe('scalar/url', () => {
       input,
       urlCodec.decode,
       fromEither,
-      mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_URL))
+      mapAll((err) => expect(getErrorMessage(err)).toBe(ERR_INVALID_URL))
     )()
   })
 })

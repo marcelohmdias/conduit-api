@@ -24,7 +24,7 @@ describe('scalar/email', () => {
       input,
       emailCodec.decode,
       fromEither,
-      mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_EMAIL))
+      mapAll((err) => expect(getErrorMessage(err)).toBe(ERR_INVALID_EMAIL))
     )()
   })
 })

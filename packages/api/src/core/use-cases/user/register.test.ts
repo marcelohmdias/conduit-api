@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { pipe } from 'fp-ts/lib/function'
 import { describe, expect, test } from 'vitest'
 
-import { EXTERNAL_ERROR, mapAll, unsafeEmail, unsafeUrl } from '@config/tests/fixtures'
+import { EXTERNAL_ERROR, mapAll, unsafeEmail, unsafePassword, unsafeSlug, unsafeUrl } from '@config/tests/fixtures'
 
 import { userCodec } from '@core/types/user'
 import type { CreateUser } from '@core/types/user'
@@ -11,9 +11,9 @@ import { register } from './register'
 import type { OutsideRegister } from './register'
 
 const data: CreateUser = {
-  username: faker.internet.userName(),
+  username: unsafeSlug(faker.lorem.word(10)),
   email: unsafeEmail(faker.internet.email()),
-  password: faker.internet.password()
+  password: unsafePassword(faker.internet.password())
 }
 
 const registerOk: OutsideRegister = async (res) => {
