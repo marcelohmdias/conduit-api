@@ -8,23 +8,23 @@ import { getErrorMessage, mapAll } from '@config/tests/fixtures'
 import { emailCodec, ERR_INVALID_EMAIL } from './email'
 
 describe('scalar/email', () => {
-  test('Should correctly validate the email', () => {
+  test('Should correctly validate the email', async () => {
     const input = faker.internet.email()
-    pipe(
+    return pipe(
       input,
       emailCodec.decode,
       fromEither,
       mapAll((res) => expect(res).toBe(input))
-    )
+    )()
   })
 
-  test('Should return a error when email is invalid', () => {
+  test('Should return a error when email is invalid', async () => {
     const input = faker.random.word()
-    pipe(
+    return pipe(
       input,
       emailCodec.decode,
       fromEither,
       mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_EMAIL))
-    )
+    )()
   })
 })

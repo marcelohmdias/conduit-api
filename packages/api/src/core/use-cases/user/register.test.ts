@@ -33,21 +33,19 @@ const registerFail = async () => {
 describe('use-cases/user', () => {
   test('Should register with success', async () => {
     const registerAdapter = register(registerOk)
-    const pipeline = pipe(
+    return pipe(
       data,
       registerAdapter(),
       mapAll((res) => expect(userCodec.is(res)).toBeTruthy())
-    )
-    return pipeline()
+    )()
   })
 
   test('Should return a Left if register function throws an error', async () => {
     const registerAdapter = register(registerFail)
-    const pipeline = pipe(
+    return pipe(
       data,
       registerAdapter(),
       mapAll((err) => expect(err).toStrictEqual(new Error(EXTERNAL_ERROR)))
-    )
-    pipeline()
+    )()
   })
 })

@@ -8,23 +8,23 @@ import { getErrorMessage, mapAll } from '@config/tests/fixtures'
 import { ERR_INVALID_URL, urlCodec } from './url'
 
 describe('scalar/url', () => {
-  test('Should correctly validate the URL', () => {
+  test('Should correctly validate the URL', async () => {
     const input = faker.internet.avatar()
-    pipe(
+    return pipe(
       input,
       urlCodec.decode,
       fromEither,
       mapAll((res) => expect(res).toBe(input))
-    )
+    )()
   })
 
-  test('Should return a error when URL is invalid', () => {
+  test('Should return a error when URL is invalid', async () => {
     const input = faker.random.word()
-    pipe(
+    return pipe(
       input,
       urlCodec.decode,
       fromEither,
       mapAll((err) => expect(getErrorMessage(err)).toStrictEqual(ERR_INVALID_URL))
-    )
+    )()
   })
 })
