@@ -31,8 +31,8 @@ importers:
       '@types/module-alias': 2.0.1
       '@typescript-eslint/eslint-plugin': 5.33.1
       '@typescript-eslint/parser': 5.33.1
+      '@vitest/coverage-c8': 0.22.1
       '@vitest/ui': 0.22.1
-      c8: 7.12.0
       eslint: 8.22.0
       eslint-config-prettier: 8.5.0
       eslint-config-standard: 17.0.0
@@ -66,8 +66,8 @@ importers:
       '@types/module-alias': 2.0.1
       '@typescript-eslint/eslint-plugin': 5.33.1_vsoshirnpb7xw6mr7xomgfas2i
       '@typescript-eslint/parser': 5.33.1_4rv7y5c6xz3vfxwhbrcxxi73bq
+      '@vitest/coverage-c8': 0.22.1_@vitest+ui@0.22.1
       '@vitest/ui': 0.22.1
-      c8: 7.12.0
       eslint: 8.22.0
       eslint-config-prettier: 8.5.0_eslint@8.22.0
       eslint-config-standard: 17.0.0_zbdqnta3mhnrvw4yywdsj5qdqy
@@ -86,9 +86,11 @@ importers:
   packages/contract:
     specifiers:
       fp-ts: 2.12.2
+      io-ts: 2.2.17
       typescript: 4.7.4
     dependencies:
       fp-ts: 2.12.2
+      io-ts: 2.2.17_fp-ts@2.12.2
     devDependencies:
       typescript: 4.7.4
 
@@ -894,6 +896,24 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.33.1
       eslint-visitor-keys: 3.3.0
+    dev: true
+
+  /@vitest/coverage-c8/0.22.1_@vitest+ui@0.22.1:
+    resolution: {integrity: sha512-KOOYpO7EGpaF+nD8GD+Y05D0JtZp12NUu6DdLXvBPqSOPo2HkZ7KNBtfR0rb6gOy3NLtGiWTYTzCwhajgb2HlA==}
+    dependencies:
+      c8: 7.12.0
+      vitest: 0.22.1_@vitest+ui@0.22.1
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - happy-dom
+      - jsdom
+      - less
+      - sass
+      - stylus
+      - supports-color
+      - terser
     dev: true
 
   /@vitest/ui/0.22.1:
