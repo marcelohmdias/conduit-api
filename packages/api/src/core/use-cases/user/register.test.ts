@@ -1,11 +1,12 @@
 import { faker } from '@faker-js/faker'
 import { pipe } from 'fp-ts/lib/function'
-import { map } from 'fp-ts/lib/TaskEither'
 import { describe, expect, test } from 'vitest'
 
-import type { CreateUser } from '@core/types'
+import { EXTERNAL_ERROR, mapAllTE, unsafeEmail, unsafeUrl } from '@config/tests/fixtures'
 
-import { unsafeEmail } from '../../../config/tests/fixtures'
+import { userCodec } from '@core/types/user'
+import type { CreateUser } from '@core/types/user'
+
 import { register } from './register'
 import type { OutsideRegister } from './register'
 
@@ -19,10 +20,14 @@ const registerOk: OutsideRegister = async (res) => {
   return {
     username: res.username,
     email: res.email,
-    image: faker.image.avatar(),
+    image: unsafeUrl(faker.image.avatar()),
     token: faker.datatype.uuid(),
     bio: faker.lorem.paragraph(1)
   }
+}
+
+const registerFail = async () => {
+  throw new Error(EXTERNAL_ERROR)
 }
 
 describe('use-cases/user', () => {
@@ -31,8 +36,18 @@ describe('use-cases/user', () => {
     const pipeline = pipe(
       data,
       registerAdapter(),
-      map((res) => expect(res.token).toBeDefined())
+      mapAllTE((res) => expect(userCodec.is(res)).toBeTruthy())
     )
     return pipeline()
+  })
+
+  test('Should return a Left if register function throws an error', async () => {
+    const registerAdapter = register(registerFail)
+    const pipeline = pipe(
+      data,
+      registerAdapter(),
+      mapAllTE((err) => expect(err).toStrictEqual(new Error(EXTERNAL_ERROR)))
+    )
+    pipeline()
   })
 })
