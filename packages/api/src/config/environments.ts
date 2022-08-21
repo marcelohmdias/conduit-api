@@ -2,6 +2,7 @@ import convict from 'convict'
 
 const environments = {
   app: {
+    adapter: process.env.ADAPTER,
     env: process.env.NODE_ENV || 'development',
     name: process.env.APP_NAME || '',
     pid: process.pid
@@ -12,6 +13,6 @@ const environments = {
   }
 }
 
-export const config = convict<typeof environments>(environments)
+export const env = convict<typeof environments>(environments)
 
-export type Env = typeof config
+export type Env = typeof env
