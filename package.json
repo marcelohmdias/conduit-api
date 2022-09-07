@@ -17,23 +17,23 @@
     "lint:fix": "pnpm lint -- --fix",
     "prepare": "pnpx simple-git-hooks",
     "test": "echo \"Error: no test specified\"",
-    "up:check": "pnpm -s dlx npm-check -u"
+    "up:check": "pnpm up -iL"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.0.3",
-    "@commitlint/config-conventional": "17.0.3",
+    "@commitlint/cli": "17.1.2",
+    "@commitlint/config-conventional": "17.1.0",
     "commitizen": "4.2.5",
-    "cz-git": "1.3.10",
+    "cz-git": "1.3.11",
     "inquirer": "8.2.4",
     "lint-staged": "13.0.3",
     "simple-git-hooks": "2.8.0",
-    "typescript": "4.7.4"
+    "typescript": "4.8.2"
   },
   "engines": {
     "node": ">=16",
     "pnpm": ">=7"
   },
-  "packageManager": "pnpm@7.9.3",
+  "packageManager": "pnpm@7.11.0",
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git",
