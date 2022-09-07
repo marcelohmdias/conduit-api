@@ -1,5 +1,6 @@
 import { Branded } from 'io-ts'
-import { Callable } from './ports'
+
+import { Callable } from './utils'
 
 type Validator<T> = Callable<boolean, T>
 

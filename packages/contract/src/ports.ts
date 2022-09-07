@@ -1,20 +1,31 @@
-import { Lazy } from 'fp-ts/function'
-import { Reader } from 'fp-ts/Reader'
+import { constant, pipe } from 'fp-ts/function'
+import type { Lazy } from 'fp-ts/function'
+import type { Traced } from 'fp-ts/Traced'
 
-type Adapter<T> = Lazy<T>
+import type { Callable } from './utils'
 
-type AdapterFactory<T, U> = Reader<U, T>
+interface Adapter<A> extends Lazy<A> {}
 
-type Port<T, U> = (
-  adapterFactory: AdapterFactory<T, U>
-) => (deps: U) => Adapter<T>
+interface Port<P, A, D> extends Traced<Callable<A, D>, (d: D) => P> {}
 
-export type PortDefiner = <T, U = void>() => Port<T, U>
+export type DefinePort = <P, A, D = void>(
+  p: Callable<P, Adapter<A>>
+) => Port<P, A, D>
 
-export type Callable<T, U = void> = U extends void ? () => T : (param: U) => T
+const toAdapter = <A>(adapter: A): Adapter<A> => constant(adapter)
 
-export const definePort: PortDefiner = () => {
-  return (adapterFactory) => (deps) => {
-    return () => adapterFactory(deps)
+/**
+ * Used when the port and adapter have the same interface.
+ **/
+export const resolvePort = <A>(adapter: Adapter<A>): A => adapter()
+
+/**
+ * Used to specify  the pattern of de ports and adapter of a system
+ **/
+export const definePort: DefinePort = (portFn) => {
+  return (adapterFn) => {
+    return (deps) => {
+      return pipe(deps, adapterFn, toAdapter, portFn)
+    }
   }
 }
