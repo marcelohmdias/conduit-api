@@ -4,7 +4,8 @@ import { map, mapLeft } from 'fp-ts/TaskEither'
 
 import { httpPort } from '@ports/http'
 
-import { register } from '@adapters/user/register-adapter'
+import { dbAdapter } from '@adapters/db-in-memory/db'
+import { register } from '@adapters/use-cases/user/register-adapter'
 
 export const createServer = httpPort(({ env }) => {
   const app = express()
@@ -23,25 +24,18 @@ export const createServer = httpPort(({ env }) => {
     }
   }
 
-  const outsideRegister = async (data: any) => {
-    return {
-      success: true,
-      user: data
-    }
-  }
-
   app.post('/api/users', async (req: Request, res: Response) => {
     const { user } = req.body
     return pipe(
       user,
-      register(outsideRegister)(),
+      register({ db: dbAdapter() }),
       map((result) => res.json(result)),
       mapLeft((error) => res.status(422).json(getError(error.message)))
     )()
   })
 
   return {
-    start() {
+    listen() {
       app.listen(PORT, () => {
         console.log(`⚡ Server is listening on http://${HOST}:${PORT}`)
       })

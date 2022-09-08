@@ -11,7 +11,7 @@ import { EXTERNAL_ERROR, mapAll, unsafeEmail, unsafePassword, unsafeSlug, unsafe
 import { userCodec } from '@core/types/user'
 import type { CreateUser } from '@core/types/user'
 
-import { register } from './register-user'
+import { registerPort } from './register-user'
 import type { OutsideRegister } from './register-user'
 
 const data: CreateUser = {
@@ -52,7 +52,7 @@ const mapLeft = (message: string) => {
 
 describe('use-cases/register-user', () => {
   test('Should register with success', async () => {
-    const registerAdapter = register(registerOk)
+    const registerAdapter = registerPort(() => registerOk)
     return pipe(
       data,
       registerAdapter(),
@@ -61,17 +61,17 @@ describe('use-cases/register-user', () => {
   })
 
   test('Should return a Left if register function throws an error', async () => {
-    const registerAdapter = register(registerFail)
+    const registerAdapter = registerPort(() => registerFail)
     return pipe(data, registerAdapter(), mapLeft(EXTERNAL_ERROR))()
   })
 
   test('Should not accept a register from a user with invalid username', async () => {
-    const registerAdapter = register(registerOk)
+    const registerAdapter = registerPort(() => registerOk)
     return pipe(dataWithWrongUsername, registerAdapter(), mapLeft(ERR_INVALID_SLUG))()
   })
 
   test('Should not accept a register from a user with invalid email and password', async () => {
-    const registerAdapter = register(registerOk)
+    const registerAdapter = registerPort(() => registerOk)
     return pipe(
       dataWithWrongEmailAndPassword,
       registerAdapter(),

@@ -5,13 +5,18 @@ import { passwordCodec } from '@core/types/scalar/password'
 import { slugCodec } from '@core/types/scalar/slug'
 import { urlCodec } from '@core/types/scalar/url'
 
-export const userCodec = t.type({
+const userRequired = t.type({
   email: emailCodec,
+  username: slugCodec
+})
+
+const userPartial = t.partial({
   token: t.string,
-  username: slugCodec,
   bio: t.string,
   image: urlCodec
 })
+
+export const userCodec = t.intersection([userRequired, userPartial])
 
 export const createUserCodec = t.type({
   username: slugCodec,
