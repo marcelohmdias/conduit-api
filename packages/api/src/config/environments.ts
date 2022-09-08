@@ -13,6 +13,6 @@ const environments = {
   }
 }
 
-export const env = convict<typeof environments>(environments)
+export const env = convict(environments)
 
 export type Env = typeof env

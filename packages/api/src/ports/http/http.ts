@@ -1,4 +1,4 @@
-import { definePort } from '@conduit/contract/src'
+import { definePort, resolvePort } from '@conduit/contract/src'
 
 import { Env } from '@config/environments'
 
@@ -7,7 +7,7 @@ type Dependencies = {
 }
 
 type HTTPServer = {
-  start: () => void
+  listen: () => void
 }
 
-export const httpPort = definePort<HTTPServer, Dependencies>()
+export const httpPort = definePort<HTTPServer, HTTPServer, Dependencies>(resolvePort)
