@@ -2,14 +2,15 @@ import { faker } from '@faker-js/faker'
 import { pipe } from 'fp-ts/lib/function'
 import { describe, expect, test } from 'vitest'
 
-import { ERR_INVALID_EMAIL } from '@src/core/types/scalar/email'
-import { ERR_INVALID_PASSWORD } from '@src/core/types/scalar/password'
-import { ERR_INVALID_SLUG } from '@src/core/types/scalar/slug'
-
 import { EXTERNAL_ERROR, mapAll, unsafeEmail, unsafePassword, unsafeSlug, unsafeUrl } from '@config/tests/fixtures'
 
+import { ERR_INVALID_EMAIL } from '@core/types/scalar/email'
+import { ERR_INVALID_PASSWORD } from '@core/types/scalar/password'
+import { ERR_INVALID_SLUG } from '@core/types/scalar/slug'
 import { userCodec } from '@core/types/user'
 import type { CreateUser } from '@core/types/user'
+
+import { repositoryAdapter } from '@adapters/repository-in-memory'
 
 import { registerPort } from './register-user'
 import type { OutsideRegister } from './register-user'
@@ -34,11 +35,13 @@ const dataWithWrongEmailAndPassword: CreateUser = {
 
 const registerOk: OutsideRegister = async (res) => {
   return {
-    username: res.username,
-    email: res.email,
-    image: unsafeUrl(faker.image.avatar()),
-    token: faker.datatype.uuid(),
-    bio: faker.lorem.paragraph(1)
+    user: {
+      username: res.username,
+      email: res.email,
+      image: unsafeUrl(faker.image.avatar()),
+      token: faker.datatype.uuid(),
+      bio: faker.lorem.paragraph(1)
+    }
   }
 }
 
@@ -53,29 +56,38 @@ const mapLeft = (message: string) => {
 describe('use-cases/register-user', () => {
   test('Should register with success', async () => {
     const registerAdapter = registerPort(() => registerOk)
+    const register = registerAdapter({
+      repository: repositoryAdapter()
+    })
+
     return pipe(
       data,
-      registerAdapter(),
+      register,
       mapAll((res) => expect(userCodec.is(res)).toBeTruthy())
     )()
   })
 
   test('Should return a Left if register function throws an error', async () => {
     const registerAdapter = registerPort(() => registerFail)
-    return pipe(data, registerAdapter(), mapLeft(EXTERNAL_ERROR))()
+    const register = registerAdapter({
+      repository: repositoryAdapter()
+    })
+    return pipe(data, register, mapLeft(EXTERNAL_ERROR))()
   })
 
   test('Should not accept a register from a user with invalid username', async () => {
     const registerAdapter = registerPort(() => registerOk)
-    return pipe(dataWithWrongUsername, registerAdapter(), mapLeft(ERR_INVALID_SLUG))()
+    const register = registerAdapter({
+      repository: repositoryAdapter()
+    })
+    return pipe(dataWithWrongUsername, register, mapLeft(ERR_INVALID_SLUG))()
   })
 
   test('Should not accept a register from a user with invalid email and password', async () => {
     const registerAdapter = registerPort(() => registerOk)
-    return pipe(
-      dataWithWrongEmailAndPassword,
-      registerAdapter(),
-      mapLeft(`${ERR_INVALID_EMAIL}:::${ERR_INVALID_PASSWORD}`)
-    )()
+    const register = registerAdapter({
+      repository: repositoryAdapter()
+    })
+    return pipe(dataWithWrongEmailAndPassword, register, mapLeft(`${ERR_INVALID_EMAIL}:::${ERR_INVALID_PASSWORD}`))()
   })
 })
